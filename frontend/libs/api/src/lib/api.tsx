@@ -1,10 +1,10 @@
 import styles from './api.module.scss';
 import {useMemo} from "react";
 import {initApiClient} from "./requests/api-client";
-import {useApi} from "./providers/api.context";
+import {useApiUrl} from "./providers";
 
 export function Api() {
-    const api = useApi();
+    const api = useApiUrl();
     useMemo(() => initApiClient(api), [api])
 
     return (

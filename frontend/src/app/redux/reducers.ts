@@ -1,4 +1,4 @@
-import {STORE_FEATURE_KEY, storeReducer} from './app/redux/store.slice';
+import {STORE_FEATURE_KEY, storeReducer} from './store.slice';
 import {STOCK_FEATURE_KEY, stockReducer} from '@aw/api';
 
 export default {

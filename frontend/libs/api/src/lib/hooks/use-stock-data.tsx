@@ -1,15 +1,16 @@
-import {useDispatch} from "react-redux";
-import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
 import {fetchStockData} from "../requests/fetch-stock";
+import {stockSelectAll} from "../redux";
 
 export function useStockData(percent: number) {
-    const [quotas, setQuotas] = useState(null);
+    const data = useSelector(stockSelectAll)
 
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('dispatch')
-        dispatch<any>(fetchStockData(1));
-    }, );
+        dispatch<any>(fetchStockData(percent));
+    }, []);
 
-    return quotas;
+    return data;
 }

@@ -1,14 +1,16 @@
-import {createContext, useContext, PropsWithChildren} from 'react';
+import {createContext, useContext, PropsWithChildren, useMemo} from 'react';
+import {initApiClient} from "../requests/api-client";
 
-export const ApiContext = createContext("");
+const ApiContext = createContext("");
 
-export const useApi = () => useContext(ApiContext);
+export const useApiUrl = () => useContext(ApiContext);
 
 type ApiProviderProps = {
     apiUrl: string;
 }
 
 export const ApiProvider = ({apiUrl, children}: PropsWithChildren<ApiProviderProps>) => {
+    useMemo(() => initApiClient(apiUrl), [apiUrl])
     return (
         <ApiContext.Provider value={apiUrl}>
             {children}
