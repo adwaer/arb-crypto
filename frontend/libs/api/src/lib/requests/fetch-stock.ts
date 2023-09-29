@@ -5,7 +5,7 @@ import {GET_STOCK} from "./grapghql/GET_STOCK";
 
 export const fetchStockData = createAsyncThunk<MultiQuota[], number>(
     'stock/fetch',
-    async (percent: number, thunkAPI) => {
+    async (percent: number) => {
         const response = await apiClient.query({percent}, GET_STOCK);
         // console.log('response', response.stock)
         return response.stock.data;
