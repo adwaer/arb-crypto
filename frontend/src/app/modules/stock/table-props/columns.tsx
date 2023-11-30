@@ -1,10 +1,7 @@
-import {ColumnGroupType, type ColumnsType } from 'antd/es/table';
-import {MultiQuota} from "../../../../libs/api/src/lib/redux/models/multi-quota";
+import {ColumnsType} from 'antd/es/table';
 import {nameof} from "@aw/shared";
+import {MultiQuota} from "@aw/api";
 
-// function getForPosition(prefix: string): ColumnsType<MultiQuota>[] {
-//     return ColumnGroupType
-// }
 
 const columns: ColumnsType<MultiQuota> = [
     {
@@ -16,7 +13,9 @@ const columns: ColumnsType<MultiQuota> = [
         title: 'Diff',
         dataIndex: nameof<MultiQuota>('diffPercent'),
         key: nameof<MultiQuota>('diffPercent'),
-    }
+        sorter: (a, b) => a.diffPercent - b.diffPercent,
+        // sortOrder: sortedInfo.columnKey === "name" ? sortedInfo.order : null
+    },
 ]
 
 export default columns;

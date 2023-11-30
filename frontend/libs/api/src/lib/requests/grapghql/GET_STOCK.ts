@@ -7,10 +7,12 @@ export const GET_STOCK = gql`
                 symbol,
                 diffPercent
                 bybit {
-                    bidPrice
+                    price,
+                    time
                 },
                 binance {
-                    bidPrice
+                    price,
+                    time
                 }
             }
         }

@@ -1,4 +1,4 @@
-import {MultiQuota} from "../../redux/models/multi-quota";
+import {MultiQuota} from "../../redux";
 
 export interface GqlResponse {
     stock: {

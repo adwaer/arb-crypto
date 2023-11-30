@@ -2,18 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type MarketPosition {
-  bidPrice: Float
-  bidQty: Float
-  askPrice: Float
-  askQty: Float
-  ts: Float
+type Trade {
+  time: Float
+  price: Float
 }
 
 type MultiQuota {
   symbol: String!
-  bybit: MarketPosition!
-  binance: MarketPosition!
+  bybit: Trade!
+  binance: Trade!
   diffPercent: Float
 }
 

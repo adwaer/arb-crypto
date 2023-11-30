@@ -1,11 +1,11 @@
 import './stock.scss';
-import columns from './columns'
-import {useStockData} from "../../../../libs/api/src/lib/hooks/use-stock-data";
-import {Table} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {Space, Switch, Table} from 'antd';
+import {useSelector} from "react-redux";
+import React, {useCallback, useEffect, useState} from "react";
 import {fetchStockData} from "../../../../libs/api/src/lib/requests/fetch-stock";
-import {stockSelectAll} from "@aw/api";
+import {stockSelectFiltered, stockActions, stockSelectAll} from "@aw/api";
+import tableProps from "./table-props";
+import {useAppDispatch} from "../../redux/hooks";
 
 /* eslint-disable-next-line */
 export interface StockProps {
@@ -13,17 +13,39 @@ export interface StockProps {
 
 
 export function Stock(props: StockProps) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     useEffect(() => {
-        console.log('dispatch')
-        dispatch<any>(fetchStockData(1));
+        dispatch(fetchStockData(1));
     }, [dispatch]);
 
-    const data = useSelector(stockSelectAll)
+    const data = useSelector(stockSelectFiltered);
+
+    const [onlyActual, setOnlyActual] = useState(false);
+    const toggleOnlyActual = useCallback(() => {
+        setOnlyActual((prev) => {
+            dispatch(stockActions.setOnlyActual(!prev));
+            return !prev;
+        })
+    }, [onlyActual])
 
     return (
         <div>
-            <Table columns={columns} dataSource={data} rowKey={item => item.symbol}/>
+            <Space style={{marginBottom: 16}}>
+                <Switch
+                    unCheckedChildren="Only actual"
+                    checkedChildren="Show all"
+                    checked={onlyActual}
+                    onChange={toggleOnlyActual}
+                />
+            </Space>
+
+            <Table
+                {...tableProps}
+                dataSource={data}
+                bordered
+                size="middle"
+                scroll={{x: 'calc(700px + 50%)', y: 240}}
+            />
         </div>
     );
 }

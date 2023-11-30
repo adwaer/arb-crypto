@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {MultiQuota} from "../redux/models/multi-quota";
+import {MultiQuota} from "../redux";
 import {apiClient} from "./api-client";
 import {GET_STOCK} from "./grapghql/GET_STOCK";
 

@@ -1,5 +1,5 @@
 import {createEntityAdapter, createSlice, PayloadAction,} from '@reduxjs/toolkit';
-import {MultiQuota} from "./models/multi-quota";
+import {MultiQuota} from "./models";
 import {StockState} from "./stock-state";
 import {fetchStockData} from "../requests/fetch-stock";
 
@@ -11,14 +11,18 @@ export const stockAdapter = createEntityAdapter<MultiQuota>({
 const initialState: StockState = stockAdapter.getInitialState({
     loadingStatus: 'not loaded',
     error: null,
+    onlyActual: false
 });
 
 const stockSlice = createSlice({
     name: STOCK_FEATURE_KEY,
     initialState,
     reducers: {
-        add: stockAdapter.addOne,
-        remove: stockAdapter.removeOne,
+        // add: stockAdapter.addOne,
+        // remove: stockAdapter.removeOne,
+        setOnlyActual: (state, {payload: onlyActual}: PayloadAction<boolean>) => {
+            state.onlyActual = onlyActual;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -38,6 +42,7 @@ const stockSlice = createSlice({
             });
     },
 });
+
 
 export const stockReducer = stockSlice.reducer;
 export const stockActions = stockSlice.actions;
